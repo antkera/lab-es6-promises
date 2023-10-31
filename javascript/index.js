@@ -143,20 +143,20 @@ Promise.all([
   obtainInstruction("brusselsSprouts", 6),
   obtainInstruction("brusselsSprouts", 7),
 ])
-.then((allresponses) => {
-  allresponses.forEach((eachStep) => {
+  .then((allresponses) => {
+    allresponses.forEach((eachStep) => {
+      document.querySelector(
+        "#brusselsSprouts"
+      ).innerHTML += `<li>${eachStep}</li>`;
+    });
     document.querySelector(
       "#brusselsSprouts"
-    ).innerHTML += `<li>${eachStep}</li>`;
+    ).innerHTML += `<li>Brussels sprouts are ready!</li>`;
+    document.querySelector("#brusselsSproutsImg").removeAttribute("hidden");
+  })
+  .catch((err) => {
+    console.log(err);
   });
-  document.querySelector(
-    "#brusselsSprouts"
-  ).innerHTML += `<li>Brussels sprouts are ready!</li>`;
-  document.querySelector("#brusselsSproutsImg").removeAttribute("hidden");
-})
-.catch((err) => {
-  console.log(err);
-});
 
 async function makeBroccoliAll() {
   try {
@@ -183,3 +183,4 @@ async function makeBroccoliAll() {
     console.log(err);
   }
 }
+// makeBroccoliAll()
