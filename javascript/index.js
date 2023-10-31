@@ -10,32 +10,52 @@ getInstruction(
   (step1) => {
     document.querySelector("#mashedPotatoes").innerHTML += `<li>${step1}</li>`;
 
-    getInstruction("mashedPotatoes", 1, (step2) => {
-      document.querySelector(
-        "#mashedPotatoes"
-      ).innerHTML += `<li>${step2}</li>`;
-
-      getInstruction("mashedPotatoes", 2, (step3) => {
+    getInstruction(
+      "mashedPotatoes",
+      1,
+      (step2) => {
         document.querySelector(
           "#mashedPotatoes"
-        ).innerHTML += `<li>${step3}</li>`;
+        ).innerHTML += `<li>${step2}</li>`;
 
-        getInstruction("mashedPotatoes", 3, (step4) => {
-          document.querySelector(
-            "#mashedPotatoes"
-          ).innerHTML += `<li>${step4}</li>`;
-
-          getInstruction("mashedPotatoes", 4, (step5) => {
+        getInstruction(
+          "mashedPotatoes",
+          2,
+          (step3) => {
             document.querySelector(
               "#mashedPotatoes"
-            ).innerHTML += `<li>${step5}</li>`;
-            document
-              .querySelector("#mashedPotatoesImg")
-              .removeAttribute("hidden");
-          });
-        });
-      });
-    },(error) => console.log(error));
+            ).innerHTML += `<li>${step3}</li>`;
+
+            getInstruction(
+              "mashedPotatoes",
+              3,
+              (step4) => {
+                document.querySelector(
+                  "#mashedPotatoes"
+                ).innerHTML += `<li>${step4}</li>`;
+
+                getInstruction(
+                  "mashedPotatoes",
+                  4,
+                  (step5) => {
+                    document.querySelector(
+                      "#mashedPotatoes"
+                    ).innerHTML += `<li>${step5}</li>`;
+                    document
+                      .querySelector("#mashedPotatoesImg")
+                      .removeAttribute("hidden");
+                  },
+                  (error) => console.log(error)
+                );
+              },
+              (error) => console.log(error)
+            );
+          },
+          (error) => console.log(error)
+        );
+      },
+      (error) => console.log(error)
+    );
   },
   (error) => console.log(error)
 );
@@ -123,8 +143,34 @@ Promise.all([
   obtainInstruction("brusselsSprouts", 6),
   obtainInstruction("brusselsSprouts", 7),
 ])
-  .then((allresponses) => {
-    allresponses.forEach((eachStep) => {
+.then((allresponses) => {
+  allresponses.forEach((eachStep) => {
+    document.querySelector(
+      "#brusselsSprouts"
+    ).innerHTML += `<li>${eachStep}</li>`;
+  });
+  document.querySelector(
+    "#brusselsSprouts"
+  ).innerHTML += `<li>Brussels sprouts are ready!</li>`;
+  document.querySelector("#brusselsSproutsImg").removeAttribute("hidden");
+})
+.catch((err) => {
+  console.log(err);
+});
+
+async function makeBroccoliAll() {
+  try {
+    let allResponses = await Promise.all([
+      obtainInstruction("brusselsSprouts", 0),
+      obtainInstruction("brusselsSprouts", 1),
+      obtainInstruction("brusselsSprouts", 2),
+      obtainInstruction("brusselsSprouts", 3),
+      obtainInstruction("brusselsSprouts", 4),
+      obtainInstruction("brusselsSprouts", 5),
+      obtainInstruction("brusselsSprouts", 6),
+      obtainInstruction("brusselsSprouts", 7),
+    ]);
+    allResponses.forEach((eachStep) => {
       document.querySelector(
         "#brusselsSprouts"
       ).innerHTML += `<li>${eachStep}</li>`;
@@ -133,7 +179,7 @@ Promise.all([
       "#brusselsSprouts"
     ).innerHTML += `<li>Brussels sprouts are ready!</li>`;
     document.querySelector("#brusselsSproutsImg").removeAttribute("hidden");
-  })
-  .catch((err) => {
+  } catch (err) {
     console.log(err);
-  });
+  }
+}
